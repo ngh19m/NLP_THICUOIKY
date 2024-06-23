@@ -29,33 +29,4 @@ F1-score (macro): 0.8847
 F1-score theo entity: 0.9087
 
 
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-def evaluate(model, X_test, y_test):
-    """
-    Đánh giá mô hình bằng accuracy, precision, recall, F1-score,
-    và F1-score theo entity.
-    """
-    y_pred = model.predict(X_test)
-
-    # Chuyển đổi y_test và y_pred thành dạng danh sách phẳng
-    y_test_flat = [tag for sublist in y_test for tag in sublist]
-    y_pred_flat = [tag for sublist in y_pred for tag in sublist]
-
-    # In báo cáo chi tiết
-    print(classification_report(y_test_flat, y_pred_flat))
-
-    # Tính toán và in các chỉ số chung
-    accuracy = accuracy_score(y_test_flat, y_pred_flat)
-    precision = precision_score(y_test_flat, y_pred_flat, average='macro')
-    recall = recall_score(y_test_flat, y_pred_flat, average='macro')
-    f1 = f1_score(y_test_flat, y_pred_flat, average='macro')
-    
-    print(f"Accuracy: {accuracy:.4f}")
-    print(f"Precision (macro): {precision:.4f}")
-    print(f"Recall (macro): {recall:.4f}")
-    print(f"F1-score (macro): {f1:.4f}")
-
-    # Tính toán F1-score theo entity
-    entity_f1 = f_measure(y_test, y_pred)
-    print(f"F1-score theo entity: {entity_f1:.4f}")
